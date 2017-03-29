@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    
+
     public ArrayList<Link> getLinks(){
         return links;
     }

@@ -43,7 +43,7 @@ public class Comment extends Thing implements Votable, Created {
 
         try {
             JSONObject childData;
-            for(int i = 0; i < replies.length(); i++){
+            for(int i = 0; i < replies.length()-1; i++){
                 childData = replies.getJSONObject(i).getJSONObject("data");
                 Comment comment = new Comment();
                 comment.ups = childData.getInt("ups");

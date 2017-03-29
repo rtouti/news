@@ -109,6 +109,10 @@ public class CommentsAdapter extends BaseAdapter {
         return link;
     }
 
+    public ArrayList<Comment> getComments(){
+        return comments;
+    }
+
     public void setComments(ArrayList<Comment> comments){
         this.comments = comments;
     }

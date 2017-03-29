@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.reddit.client.redditclient2.R;
 import com.reddit.client.redditclient2.api.things.Link;
+import com.reddit.client.redditclient2.controllers.listeners.CommentsOnItemClickListener;
 import com.reddit.client.redditclient2.views.adapters.CommentsAdapter;
 import com.squareup.picasso.Picasso;
 
 public class ArticlesActivity extends AppCompatActivity {
     private Link link;
+    private CommentsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +27,17 @@ public class ArticlesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.link = (Link)intent.getSerializableExtra("link");
 
-
+        adapter = new CommentsAdapter(this);
         ListView comments = (ListView)findViewById(R.id.article_comments);
-        comments.setAdapter(new CommentsAdapter(this));
+        comments.setAdapter(adapter);
+        comments.setOnItemClickListener(new CommentsOnItemClickListener(this));
     }
 
     public Link getLink(){
         return link;
+    }
+
+    public CommentsAdapter getAdapter(){
+        return adapter;
     }
 }

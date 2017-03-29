@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp">
 
     <TextView
         android:text="TextView"
@@ -55,7 +56,10 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/replies" />
+            android:layout_height="wrap_content"
+            android:id="@+id/replies"
+            android:divider="#999"
+            android:dividerHeight="1.5dp"
+            android:paddingTop="5dp" />
     </LinearLayout>
 </LinearLayout>
