@@ -14,4 +14,6 @@
     <string name="tab_hot">Hot</string>
     <string name="tab_new">New</string>
     <string name="tab_top">Top</string>
+
+    <string name="my_account">My account</string>
 </resources>

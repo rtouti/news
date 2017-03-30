@@ -1,5 +1,6 @@
 package com.reddit.client.redditclient2.api;
 
+import com.reddit.client.redditclient2.api.endpoints.MeEndpoint;
 import com.reddit.client.redditclient2.api.endpoints.PostCommentEndpoint;
 import com.reddit.client.redditclient2.api.endpoints.SubredditLinksEndpoint;
 import com.reddit.client.redditclient2.api.things.Thing;
@@ -11,7 +12,7 @@ import com.reddit.client.redditclient2.controllers.async.PostFetchingTask;
 
 public class RedditClient {
     public static final String REDDIT_URL = "http://www.reddit.com/";
-    public static final String REDDIT_OAUTH_URL = "https://www.oauth.reddit.com/";
+    public static final String REDDIT_OAUTH_URL = "https://oauth.reddit.com/";
     public static final String AUTHORIZATION_URL =
             "https://www.reddit.com/api/v1/authorize?client_id=%s&response_type=%s&" +
                     "state=%s&redirect_uri=%s&duration=%s&scope=%s";
@@ -28,12 +29,20 @@ public class RedditClient {
     public static String ACCESS_TOKEN = "";
     public static String REFRESH_TOKEN = "";
 
+    public static boolean CONNECTED = false;
+
 
     public RedditClient(){
 
     }
 
-    public static String getAuthorizationURL(boolean compact, String scope){
+    public static String getAuthorizationURL(boolean compact, String... scope){
+        String scopes = "";
+        for(int i = 0; i < scope.length-1; i++){
+            scopes += scope[i] + ",";
+        }
+        scopes += scope[scope.length-1];
+
         return String.format(
                 compact ? COMPACT_AUTHORIZATION_URL : AUTHORIZATION_URL,
                 CLIENT_ID,
@@ -41,7 +50,7 @@ public class RedditClient {
                 RANDOM_STRING,
                 REDIRECT_URI,
                 "permanent",
-                scope
+                scopes
         );
     }
 
@@ -66,6 +75,10 @@ public class RedditClient {
 
     public void reply(Thing to){
         PostCommentEndpoint endpoint = new PostCommentEndpoint(to.name);
+    }
+
+    public MeEndpoint me(){
+        return new MeEndpoint();
     }
 
 }

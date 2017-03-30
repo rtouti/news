@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView articles_list_view;
     private ArticlesAdapter articles_adapter;
+    private DrawerAdapter drawer_adapter;
     private ArrayList<Link> links;
     private boolean connected = false;
     private String currentSubreddit = "news";
@@ -72,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
         articles_list_view.setAdapter(articles_adapter);
         articles_list_view.setOnItemClickListener(new ArticlesOnItemClickListener(this));
 
+        drawer_adapter = new DrawerAdapter(this, drawerItems);
         ListView drawer_list_view = (ListView)findViewById(R.id.drawer_list_view);
-        drawer_list_view.setAdapter(new DrawerAdapter(this, drawerItems));
+        drawer_list_view.setAdapter(drawer_adapter);
         drawer_list_view.setOnItemClickListener(new DrawerOnItemClickListener(this, drawerItemsStrings));
 
         TabLayout tab_layout = (TabLayout)findViewById(R.id.tab_layout);
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent != null && intent.getAction().equals(Intent.ACTION_VIEW)){
+        if(!RedditClient.CONNECTED && intent != null && intent.getAction().equals(Intent.ACTION_VIEW)){
             Uri uri = intent.getData();
             String error = uri.getQueryParameter("error");
             //Si pas d'erreur
@@ -136,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < newLinks.size(); i++){
             this.links.add(newLinks.get(i));
         }
+    }
+
+    public DrawerAdapter getDrawerAdapter(){
+        return drawer_adapter;
     }
 
     public boolean getConnected(){

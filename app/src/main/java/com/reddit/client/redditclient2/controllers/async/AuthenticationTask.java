@@ -47,8 +47,11 @@ public class AuthenticationTask extends AsyncTask<Object, Object, Object> {
             JSONObject responseJson = new JSONObject(requester.getBodyString());
             RedditClient.ACCESS_TOKEN = responseJson.getString("access_token");
             RedditClient.REFRESH_TOKEN = responseJson.getString("refresh_token");
+            RedditClient.CONNECTED = true;
             Log.i("DEBUG", "Access token : "+RedditClient.ACCESS_TOKEN);
             Log.i("DEBUG", "Refresh token : "+RedditClient.REFRESH_TOKEN);
+
+            activity.getDrawerAdapter().notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }
